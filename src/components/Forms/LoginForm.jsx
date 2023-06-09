@@ -123,7 +123,7 @@ const LoginForm = () => {
           )}
         </Box>
         <Typography textAlign="center" mt={1}>
-          Don't have an account? <Link to="/registration">Sign Up</Link>
+          Don't have an account? <Link to="/register">Sign Up</Link>
         </Typography>
       </Box>
     </Box>
