@@ -10,7 +10,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { generateAccessToken } from "../../utills/helper";
 
 const LoginForm = () => {
@@ -19,7 +19,7 @@ const LoginForm = () => {
     password: "",
   });
   const [error, setError] = useState("");
-
+  const navigate = useNavigate();
   const handleInput = (e) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({
@@ -44,6 +44,7 @@ const LoginForm = () => {
           "fake_access_token",
           JSON.stringify(fakeAccessToken)
         );
+        navigate("/dashboard");
       } else {
         setError("Username or password did not match");
       }
