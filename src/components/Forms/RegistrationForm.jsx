@@ -2,6 +2,8 @@ import { useState } from "react";
 import { TextField, Grid, Button, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -29,38 +31,14 @@ const RegistrationForm = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    // Update the nested properties of the form data
-    // if (name.includes(".")) {
-    //   const [parentKey, childKey] = name.split(".");
-    //   setFormData((prevData) => ({
-    //     ...prevData,
-    //     [parentKey]: {
-    //       ...prevData[parentKey],
-    //       [childKey]: value,
-    //     },
-    //   }));
-    // } else {
-    //   // Update the top-level properties of the form data
-    //   setFormData((prevData) => ({
-    //     ...prevData,
-    //     [name]: value,
-    //   }));
-    // }
     setFormData((prevFormData) => {
       const updatedData = { ...prevFormData };
       const keys = name.split(".");
       let nestedData = updatedData;
-
-      console.log("key", keys);
-
       keys.forEach((key, index) => {
         if (index === keys.length - 1) {
-          console.log("key", 111);
-
           nestedData[key] = value; // Update the final nested property value
         } else {
-          console.log("signle", nestedData);
-          console.log("KSDFDFSDFS", key, nestedData[key]);
           nestedData = nestedData[key]; // Traverse deeper into the nested object
         }
       });
@@ -71,8 +49,14 @@ const RegistrationForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform any desired action with the form data
     console.log(formData);
+
+    try {
+      const { data } = axios.post("https://fakestoreapi.com/users", formData);
+      console.log("Dtaa", data);
+    } catch (error) {
+      console.log("EEE", error.response);
+    }
   };
   return (
     <Box sx={{ maxWidth: 800, mx: "auto" }}>
