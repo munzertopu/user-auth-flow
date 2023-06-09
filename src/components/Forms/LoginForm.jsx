@@ -8,6 +8,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import InputLabel from "@mui/material/InputLabel";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import TextField from "@mui/material/TextField";
+import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -16,6 +17,7 @@ const LoginForm = () => {
     username: "",
     password: "",
   });
+  const [error, setError] = useState("");
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -25,13 +27,25 @@ const LoginForm = () => {
     }));
   };
 
-  //   const getUser = () => {
-  //     //axios.get()
-  //   };
-
-  //   const handleSubmitForm = (e) => {
-  //     console.log(e);
-  //   };
+  const getUsers = async (user) => {
+    const { username, password } = user;
+    try {
+      const { data } = await axios.get("https://fakestoreapi.com/users");
+      console.log("Data", data);
+      const allUsers = [...data];
+      const authorized = allUsers.filter(
+        (item) => item.username === username && item.password === password
+      );
+      if (authorized.length > 0) {
+        //
+        localStorage.setItem("CANCER_USER_INFO", JSON.stringify(data.data));
+      } else {
+        setError("Username or password did not match");
+      }
+    } catch (error) {
+      console.log("Error===>", error.response);
+    }
+  };
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -40,9 +54,10 @@ const LoginForm = () => {
     event.preventDefault();
   };
 
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = async (e) => {
     e.preventDefault();
-    console.log("FORM", user);
+    setError("");
+    getUsers(user);
   };
   return (
     <Box sx={{ maxWidth: 320, mx: "auto" }}>
@@ -91,9 +106,16 @@ const LoginForm = () => {
           />
         </FormControl>
 
-        <Button variant="contained" size="large" fullWidth>
+        <Button variant="contained" size="large" fullWidth type="submit">
           Login
         </Button>
+        <Box textAlign="center">
+          {error !== "" && (
+            <Typography variant="h5" color="red">
+              {error}
+            </Typography>
+          )}
+        </Box>
         <Typography textAlign="center" mt={1}>
           Don't have an account? <Link to="/registration">Sign Up</Link>
         </Typography>
