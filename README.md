@@ -2,7 +2,7 @@
 
 ## How to use
 
-Download [or clone this repo](https://github.com/munzertopu/user-auth-flow):
+Download or [clone this repo](https://github.com/munzertopu/user-auth-flow):
 
 Install it and run:
 
