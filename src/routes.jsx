@@ -5,6 +5,7 @@ import DashboardLayout from "./components/Layouts/DashboardLayout";
 import HomeLayout from "./components/Layouts/HomeLayout";
 import About from "./pages/About";
 import Dashboard from "./pages/Dashboard";
+import Error from "./pages/Error";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Registration from "./pages/Registration";
@@ -29,6 +30,7 @@ const Routers = () => {
       >
         <Route index element={<Dashboard />} />
       </Route>
+      <Route path="*" element={<Error />} />
     </Routes>
   );
 };
