@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TextField, Grid, Button, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const RegistrationForm = () => {
@@ -28,6 +28,7 @@ const RegistrationForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -47,14 +48,26 @@ const RegistrationForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-
+    setLoading(true);
     try {
-      const { data } = axios.post("https://fakestoreapi.com/users", formData);
-      console.log("Dtaa", data);
+      const { data } = await axios.post(
+        "https://fakestoreapi.com/users",
+        formData
+      );
+      console.log("Data", data);
+      setLoading(false);
+      setError(false);
+      setSuccess(true);
+      setTimeout(() => {
+        navigate("/");
+      }, 2500);
     } catch (error) {
+      setLoading(false);
+      setError(true);
+      setSuccess(false);
       console.log("EEE", error.response);
     }
   };
@@ -190,17 +203,16 @@ const RegistrationForm = () => {
           fullWidth
           sx={{ margin: "10px 0px" }}
         >
-          Sign up
+          {loading ? "Signing Up" : "Sign up"}
         </Button>
         <Typography textAlign="center" mt={1}>
           Already have an account? <Link to="/">Login</Link>
         </Typography>
       </Box>
       <Box textAlign="center">
-        {loading ? <Typography>Loading...</Typography> : null}
         {success && (
           <Typography variant="h5" color="green">
-            Thanks for signing up.
+            Thanks for signing up.Redirecting to login page.......
           </Typography>
         )}
         {error && (
