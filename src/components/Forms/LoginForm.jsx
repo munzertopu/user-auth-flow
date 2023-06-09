@@ -18,6 +18,7 @@ const LoginForm = () => {
     username: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const handleInput = (e) => {
@@ -32,23 +33,27 @@ const LoginForm = () => {
     const { username, password } = user;
     try {
       const { data } = await axios.get("https://fakestoreapi.com/users");
-      console.log("Data", data);
-      const allUsers = [...data];
-      const authorized = allUsers.filter(
-        (item) => item.username === username && item.password === password
-      );
-      if (authorized.length > 0) {
-        // setting the authentication by geneating fake access token and saving the token in browers's local storage. The authorization can also be done by lifting state up and get the current state in the component where routes are defined. If you want to avoid lifting state up , React Global State Management Tool like Redux can be used.
-        const fakeAccessToken = generateAccessToken();
-        localStorage.setItem(
-          "fake_access_token",
-          JSON.stringify(fakeAccessToken)
+      if (data && data.length > 0) {
+        const allUsers = [...data];
+        const authorized = allUsers.filter(
+          (item) => item.username === username && item.password === password
         );
-        navigate("/dashboard");
+        if (authorized.length > 0) {
+          // setting the authentication by geneating fake access token and saving the token in browers's local storage. The authorization can also be done by lifting state up and get the current state in the component where routes are defined. If you want to avoid lifting state up , React Global State Management Tool like Redux can be used.
+          const fakeAccessToken = generateAccessToken();
+          localStorage.setItem(
+            "fake_access_token",
+            JSON.stringify(fakeAccessToken)
+          );
+          navigate("/dashboard");
+        }
+        setLoading(false);
       } else {
+        setLoading(false);
         setError("Username or password did not match");
       }
     } catch (error) {
+      setLoading(false);
       console.log("Error===>", error.response);
     }
   };
@@ -62,6 +67,7 @@ const LoginForm = () => {
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setError("");
     getUsers(user);
   };
@@ -113,7 +119,7 @@ const LoginForm = () => {
         </FormControl>
 
         <Button variant="contained" size="large" fullWidth type="submit">
-          Login
+          {loading ? "Logging In..." : "Login"}
         </Button>
         <Box textAlign="center">
           {error !== "" && (

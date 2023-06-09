@@ -50,14 +50,14 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
     setLoading(true);
     try {
       const { data } = await axios.post(
         "https://fakestoreapi.com/users",
         formData
       );
-      console.log("Data", data);
+
       setLoading(false);
       setError(false);
       setSuccess(true);
@@ -68,7 +68,7 @@ const RegistrationForm = () => {
       setLoading(false);
       setError(true);
       setSuccess(false);
-      console.log("EEE", error.response);
+      console.log("Error==>", error.response);
     }
   };
   return (
