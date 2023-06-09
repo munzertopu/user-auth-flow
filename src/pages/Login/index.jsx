@@ -3,6 +3,7 @@ import Container from "@mui/material/Container";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import LoginForm from "../../components/Forms/LoginForm";
+import logo from "../../assets/rimes_logo_white.png";
 
 const Login = () => {
   return (
@@ -22,7 +23,9 @@ const Login = () => {
             },
           }}
         >
-          <Link to="/"></Link>
+          <Link to="/">
+            <img src={logo} alt="logo" width={70} />
+          </Link>
         </Typography>
         <LoginForm />
       </Container>

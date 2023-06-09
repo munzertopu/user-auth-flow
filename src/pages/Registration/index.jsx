@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 import RegistrationForm from "../../components/Forms/RegistrationForm";
+import logo from "../../assets/rimes_logo_white.png";
 
 const Registration = () => {
   return (
@@ -21,7 +22,10 @@ const Registration = () => {
             },
           }}
         >
-          <Link to="/"></Link>
+          <Link to="/">
+            {" "}
+            <img src={logo} alt="logo" width={70} />
+          </Link>
         </Typography>
         <RegistrationForm />
       </Container>
