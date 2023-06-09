@@ -4,9 +4,10 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Navbar = ({ dashboard }) => {
+  const navigate = useNavigate();
   return (
     <AppBar position="fixed">
       <Container maxWidth="xl">
@@ -62,7 +63,15 @@ const Navbar = ({ dashboard }) => {
                 </>
               ) : (
                 <Box component="li">
-                  <Button color="inherit">Logout</Button>
+                  <Button
+                    color="inherit"
+                    onClick={() => {
+                      localStorage.removeItem("fake_access_token");
+                      navigate("/");
+                    }}
+                  >
+                    Logout
+                  </Button>
                 </Box>
               )}
             </Box>
