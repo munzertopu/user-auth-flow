@@ -62,7 +62,7 @@ const RegistrationForm = () => {
       setError(false);
       setSuccess(true);
       setTimeout(() => {
-        navigate("/");
+        navigate("/login");
       }, 2500);
     } catch (error) {
       setLoading(false);
