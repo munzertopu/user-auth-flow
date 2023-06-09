@@ -11,8 +11,9 @@ import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { generateAccessToken } from "../../utills/helper";
 
-const LoginForm = ({ setAuth }) => {
+const LoginForm = () => {
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -37,10 +38,13 @@ const LoginForm = ({ setAuth }) => {
         (item) => item.username === username && item.password === password
       );
       if (authorized.length > 0) {
-        // setting the authentication by leveling up state. It can also be done by saving the access token in the browser's localstrorage.
-        setAuth(true);
+        // setting the authentication by geneating fake access token and saving the token in browers's local storage. The authorization can also be done by lifting state up and get the current state in the component where routes are defined. If you want to avoid lifting state up , React Global State Management Tool like Redux can be used.
+        const fakeAccessToken = generateAccessToken();
+        localStorage.setItem(
+          "fake_access_token",
+          JSON.stringify(fakeAccessToken)
+        );
       } else {
-        setAuth(false);
         setError("Username or password did not match");
       }
     } catch (error) {

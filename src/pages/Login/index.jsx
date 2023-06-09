@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import LoginForm from "../../components/Forms/LoginForm";
 
-const Login = ({ setAuth }) => {
+const Login = () => {
   return (
     <Box
       display="flex"
@@ -24,7 +24,7 @@ const Login = ({ setAuth }) => {
         >
           <Link to="/"></Link>
         </Typography>
-        <LoginForm setAuth={setAuth} />
+        <LoginForm />
       </Container>
     </Box>
   );
