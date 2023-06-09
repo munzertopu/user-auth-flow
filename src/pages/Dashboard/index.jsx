@@ -1,5 +1,20 @@
+import { Box, Typography } from "@mui/material";
+
 const Dashboard = () => {
-  return <h1>Click on the Logout button to clear the current session </h1>;
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        height: "90vh",
+      }}
+    >
+      <Typography variant="h4" textAlign="center">
+        Welcome
+      </Typography>
+    </Box>
+  );
 };
 
 export default Dashboard;

@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./auth/PrivateRoute";
 import DashboardLayout from "./components/Layouts/DashboardLayout";
 import HomeLayout from "./components/Layouts/HomeLayout";
+import About from "./pages/About";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -15,6 +16,7 @@ const Routers = () => {
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Registration />} />
+        <Route path="about" element={<About />} />
       </Route>
 
       <Route
