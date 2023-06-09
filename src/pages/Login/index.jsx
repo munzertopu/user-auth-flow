@@ -1,9 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import LoginForm from "../../components/Forms/LoginForm";
 
-const Login = () => {
+const Login = ({ setAuth }) => {
   return (
     <Box
       display="flex"
@@ -23,7 +24,7 @@ const Login = () => {
         >
           <Link to="/"></Link>
         </Typography>
-        <LoginForm />
+        <LoginForm setAuth={setAuth} />
       </Container>
     </Box>
   );

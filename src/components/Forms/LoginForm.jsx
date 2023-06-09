@@ -12,7 +12,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const LoginForm = () => {
+const LoginForm = ({ setAuth }) => {
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -37,9 +37,10 @@ const LoginForm = () => {
         (item) => item.username === username && item.password === password
       );
       if (authorized.length > 0) {
-        //
-        localStorage.setItem("CANCER_USER_INFO", JSON.stringify(data.data));
+        // setting the authentication by leveling up state. It can also be done by saving the access token in the browser's localstrorage.
+        setAuth(true);
       } else {
+        setAuth(false);
         setError("Username or password did not match");
       }
     } catch (error) {
